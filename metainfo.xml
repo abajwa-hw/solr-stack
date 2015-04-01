@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>SOLR</name>
+            <displayName>Solr</displayName>
+            <comment>Solr is a search platform from the Apache Lucene project. Its major features include full-text search, hit highlighting, faceted search, dynamic clustering, database integration, and rich document (e.g., Word, PDF) handling.</comment>
+            <version>0.0.1</version>
+            <components>
+                <component>
+                  <name>SOLR_MASTER</name>
+                  <displayName>Solr</displayName>
+                  <category>MASTER</category>
+                  <cardinality>1</cardinality>
+                  <commandScript>
+                    <script>scripts/master.py</script>
+                    <scriptType>PYTHON</scriptType>
+                    <timeout>5000</timeout>
+                  </commandScript>
+                </component>
+            </components>
+            <!-- <osSpecifics>
+              <osSpecific>
+                <osFamily>redhat6</osFamily>
+                <packages>
+                   <package><name>npm</name></package>                                                 
+                </packages>
+              </osSpecific>
+            </osSpecifics> -->
+      	    <configuration-dependencies>
+        	<config-type>solr-config</config-type>
+      	    </configuration-dependencies>
+            <restartRequiredAfterChange>false</restartRequiredAfterChange>
+        </service>
+    </services>
+</metainfo>

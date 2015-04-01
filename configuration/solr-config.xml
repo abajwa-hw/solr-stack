@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+ 
+<configuration>
+
+
+  <property>
+    <name>solr.dir</name>
+    <value>/opt/solr</value>
+    <description>Path to Solr root</description>
+  </property>  
+
+  <property>
+    <name>solr.log</name>
+    <value>/var/log/solr.log</value>
+    <description>Log file for Solr service</description>
+  </property> 
+
+  <property>
+    <name>solr.stack.dir</name>
+    <value>/var/lib/ambari-agent/cache/stacks/HDP/2.2/services/solr-stack</value>
+    <description>Stack dir from where to run setup/start/stop scripts</description>
+  </property> 
+    
+  <property>
+    <name>solr.download.location</name>
+    <value>http://apache.claz.org/lucene/solr/5.0.0/solr-5.0.0.tgz</value>
+    <description>Location to download Solr from (.tgz format)</description>
+  </property>     
+
+  <property>
+    <name>solr.start.path</name>
+    <value>/opt/solr/latest/server</value>
+    <description>Dir path to start.jar where Solr will be started from</description>
+  </property>  
+
+  
+</configuration>
+
