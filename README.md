@@ -42,9 +42,9 @@ On the configuration page, please ensure that you point mvn.dir property to the 
 ![Image](../master/screenshots/2.png?raw=true)
 
 
-#### Use Solr notebook
+#### Use Solr 
 
-- Lauch the notebook via navigating to http://sandbox.hortonworks.com:8983/
+- Lauch the Solr webapp via navigating to http://sandbox.hortonworks.com:8983/
 
 - Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view)
 ![Image](../master/screenshots/3.png?raw=true)
