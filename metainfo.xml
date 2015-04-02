@@ -3,13 +3,13 @@
     <schemaVersion>2.0</schemaVersion>
     <services>
         <service>
-			<!-- Internal name for service (must be unique) -->
+            <!-- Internal name for service (must be unique) -->
             <name>SOLR</name>
             <!-- display name for service (displayed in Ambari UI) -->
             <displayName>Solr</displayName>
             <!-- Description of service - will be displayed when user clicks add service -->
             <comment>Solr is a search platform from the Apache Lucene project. Its major features include full-text search, hit highlighting, faceted search, dynamic clustering, database integration, and rich document (e.g., Word, PDF) handling.</comment>
-			<!-- Version of component-->
+            <!-- Version of component-->
             <version>0.0.1</version>
             <components>
             	<!-- In this case, there is only one master component -->
@@ -27,13 +27,13 @@
                   </commandScript>
                 </component>
             </components>
-            <!-- what yum packages will to be installed by install_packages() in master.py -->
+            <!-- what yum packages will be needed for the setup. These will be installed by install_packages() in master.py -->
              <osSpecifics>
               <osSpecific>
                 <osFamily>redhat6</osFamily>
                 <packages>
                    <package><name>wget</name></package>   
-				   <package><name>wget</name></package>                                                                   
+                   <package><name>tar</name></package>                                                                   
                 </packages>
               </osSpecific>
             </osSpecifics> 
