@@ -1,16 +1,18 @@
 #!/bin/bash
 set -e 
 
-#Path to start.jar e.g. /opt/solr
+#Path to install Solr to e.g. /opt/solr
 SOLR_PATH=$1
 
+#Url to download Solr from
 SOLR_DOWNLOAD_LOCATION=$2
+
 
 if [ ! -d "$SOLR_PATH" ]
 then
     echo "Solr not found..installing"
     
-    echo "adding"
+    echo "adding solr user"
 	adduser solr
 	mkdir $SOLR_PATH
 	chown solr $SOLR_PATH
@@ -19,7 +21,7 @@ then
 	sudo -u hdfs hdfs dfs -mkdir -p /user/solr
 	sudo -u hdfs hdfs dfs -mkdir -p /user/solr/data
 	
-	#setup solr
+	#download solr tgz and untar it
 	echo "Downloading Solr"
 	cd $SOLR_PATH
 	wget $SOLR_DOWNLOAD_LOCATION -O solr.tgz

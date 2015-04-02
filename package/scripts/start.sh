@@ -21,7 +21,7 @@ then
 	mkdir -p $PID_DIR
 fi
 
-#start Solr if not already started
+#start Solr if not already started from $START_PATH dir
 if [ ! -f "$PID_FILE" ]
 then
 	cd $START_PATH

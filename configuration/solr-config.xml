@@ -3,6 +3,8 @@
  
 <configuration>
 
+  <!-- Define configuration paramaters for service within Ambari: property name, default value and description (shown as help text) -->
+
 
   <property>
     <name>solr.dir</name>
@@ -16,8 +18,10 @@
     <description>Log file for Solr service</description>
   </property> 
 
+  <!-- Location that will contain solr stack service related files on all nodes. setup.sh/install.sh will be invoked from here -->
   <property>
     <name>solr.stack.dir</name>
+    <!-- this is a distributed cache dir that will contain service related files on all nodes-->
     <value>/var/lib/ambari-agent/cache/stacks/HDP/2.2/services/solr-stack</value>
     <description>Stack dir from where to run setup/start/stop scripts</description>
   </property> 

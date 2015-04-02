@@ -3,16 +3,23 @@
     <schemaVersion>2.0</schemaVersion>
     <services>
         <service>
+			<!-- Internal name for service (must be unique) -->
             <name>SOLR</name>
+            <!-- display name for service (displayed in Ambari UI) -->
             <displayName>Solr</displayName>
+            <!-- Description of service - will be displayed when user clicks add service -->
             <comment>Solr is a search platform from the Apache Lucene project. Its major features include full-text search, hit highlighting, faceted search, dynamic clustering, database integration, and rich document (e.g., Word, PDF) handling.</comment>
+			<!-- Version of component-->
             <version>0.0.1</version>
             <components>
+            	<!-- In this case, there is only one master component -->
                 <component>
                   <name>SOLR_MASTER</name>
                   <displayName>Solr</displayName>
                   <category>MASTER</category>
+                  <!-- how many of these components are allowed in a cluster e.g. 1 or 1+ -->
                   <cardinality>1</cardinality>
+                  <!-- reference to and details of what script is to be used to install/stop/start/config the service -->
                   <commandScript>
                     <script>scripts/master.py</script>
                     <scriptType>PYTHON</scriptType>
@@ -20,14 +27,17 @@
                   </commandScript>
                 </component>
             </components>
-            <!-- <osSpecifics>
+            <!-- what yum packages will to be installed by install_packages() in master.py -->
+             <osSpecifics>
               <osSpecific>
                 <osFamily>redhat6</osFamily>
                 <packages>
-                   <package><name>npm</name></package>                                                 
+                   <package><name>wget</name></package>   
+				   <package><name>wget</name></package>                                                                   
                 </packages>
               </osSpecific>
-            </osSpecifics> -->
+            </osSpecifics> 
+             <!-- names for config files (under configuration dir) -->
       	    <configuration-dependencies>
         	<config-type>solr-config</config-type>
       	    </configuration-dependencies>
