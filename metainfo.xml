@@ -18,7 +18,7 @@
                   <displayName>Solr</displayName>
                   <category>MASTER</category>
                   <!-- how many of these components are allowed in a cluster e.g. 1 or 1+ -->
-                  <cardinality>1</cardinality>
+                  <cardinality>1+</cardinality>
                   <!-- reference to and details of what script is to be used to install/stop/start/config the service -->
                   <commandScript>
                     <script>scripts/master.py</script>
