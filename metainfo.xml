@@ -11,6 +11,12 @@
             <comment>Solr is a search platform from the Apache Lucene project. Its major features include full-text search, hit highlighting, faceted search, dynamic clustering, database integration, and rich document (e.g., Word, PDF) handling.</comment>
             <!-- Version of component-->
             <version>0.0.1</version>
+            
+            <!-- Any required services -->
+            <requiredServices>
+                 <service>ZOOKEEPER</service>            
+            </requiredServices>
+                
             <components>
             	<!-- In this case, there is only one master component -->
                 <component>
