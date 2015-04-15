@@ -7,6 +7,12 @@
 
 
   <property>
+    <name>solr.cloudmode</name>
+    <value>false</value>
+    <description>Whether Solr should be started in Cloud mode</description>
+  </property>  
+  
+  <property>
     <name>solr.dir</name>
     <value>/opt/solr</value>
     <description>Path to Solr root</description>

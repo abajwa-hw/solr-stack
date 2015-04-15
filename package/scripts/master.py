@@ -16,7 +16,7 @@ class Master(Script):
 
     #Ensure the shell scripts in the services dir are executable 
     Execute('find '+params.stack_dir+' -iname "*.sh" | xargs chmod +x')
-    
+        
     #form command to invoke setup.sh with its arguments and execute it
     cmd = params.stack_dir + '/package/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_downloadlocation + ' ' + params.solr_user + ' >> ' + params.stack_log
     Execute('echo "Running ' + cmd + '"')
@@ -37,7 +37,12 @@ class Master(Script):
     import status_params
     
     #form command to invoke start.sh with its arguments and execute it
-    cmd = params.stack_dir + '/package/scripts/start.sh ' + params.solr_dir + ' ' + params.stack_log + ' ' + status_params.stack_pidfile + ' ' + params.solr_startpath
+    if params.solr_cloudmode:
+      cmd = params.stack_dir + '/package/scripts/start_cloud.sh ' + params.solr_dir + ' ' + params.stack_log + ' ' + status_params.stack_pidfile + ' ' + params.solr_startpath + ' ' + params.zookeeper_hosts
+    else:
+      cmd = params.stack_dir + '/package/scripts/start.sh ' + params.solr_dir + ' ' + params.stack_log + ' ' + status_params.stack_pidfile + ' ' + params.solr_startpath
+
+      
     Execute('echo "Running cmd: ' + cmd + '"')    
     Execute(cmd)
 

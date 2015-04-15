@@ -11,7 +11,7 @@ SOLR_USER=$3
 
 if [ ! -d "$SOLR_PATH" ]
 then
-    echo "Solr directory not found..installing"
+    echo "Starting Solr install"
     
 	getent passwd $SOLR_USER
 	if [ $? -eq 0 ]; then

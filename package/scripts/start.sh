@@ -11,7 +11,7 @@ PID_FILE=$3
 
 #path containing start.jar file e.g. /opt/solr/latest/server
 START_PATH=$4
-
+ 
 PID_DIR=$(dirname "$PID_FILE")
 
 #Create pid dir if it does not exist
