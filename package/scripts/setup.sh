@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e 
 
 #Path to install Solr to e.g. /opt/solr
 SOLR_PATH=$1
@@ -12,9 +11,9 @@ SOLR_USER=$3
 
 if [ ! -d "$SOLR_PATH" ]
 then
-    echo "Solr not found..installing"
+    echo "Solr directory not found..installing"
     
-    getent passwd $SOLR_USER
+	getent passwd $SOLR_USER
 	if [ $? -eq 0 ]; then
     	echo "the user exists, no need to create"
 	else
@@ -24,19 +23,23 @@ then
 	fi
 
     mkdir $SOLR_PATH
-    chown solr $SOLR_PATH
+    chown $SOLR_USER $SOLR_PATH
 
 	hadoop fs -test -d /user/$SOLR_USER
-	if [ $? -eq 0 ]; then
+	if [ $? -eq 1 ]; then
     	echo "Creating user dir in HDFS"
     	sudo -u hdfs hdfs dfs -mkdir -p /user/$SOLR_USER
+    	sudo -u hdfs hdfs dfs -chown $SOLR_USER /user/solr 
 	fi
 	
+	set -e 
     #download solr tgz and untar it
     echo "Downloading Solr"
     cd $SOLR_PATH
     wget $SOLR_DOWNLOAD_LOCATION -O solr.tgz
     tar -xvzf solr.tgz
     ln -s solr-* latest
-    echo "Solr install complete"	
+    echo "Solr install complete"
+else
+	echo "$SOLR_PATH directory already exists. Skipping install...."    	
 fi
