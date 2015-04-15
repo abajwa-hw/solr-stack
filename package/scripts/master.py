@@ -18,7 +18,7 @@ class Master(Script):
     Execute('find '+params.stack_dir+' -iname "*.sh" | xargs chmod +x')
     
     #form command to invoke setup.sh with its arguments and execute it
-    cmd = params.stack_dir + '/package/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_downloadlocation + ' >> ' + params.stack_log
+    cmd = params.stack_dir + '/package/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_downloadlocation + ' ' + params.solr_user + ' >> ' + params.stack_log
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd)
 

@@ -33,6 +33,12 @@
   </property>     
 
   <property>
+    <name>solr.user</name>
+    <value>solr</value>
+    <description>Solr user</description>
+  </property>  
+  
+  <property>
     <name>solr.start.path</name>
     <value>/opt/solr/latest/server</value>
     <description>Dir path to start.jar where Solr will be started from</description>
