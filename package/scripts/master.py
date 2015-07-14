@@ -17,7 +17,6 @@ class Master(Script):
     #Ensure the shell scripts in the services dir are executable 
     Execute('find '+params.stack_dir+' -iname "*.sh" | xargs chmod +x')
 
-    Execute('mkdir -p ' + params.solr_dir, ignore_failures=True)        
     #form command to invoke setup.sh with its arguments and execute it
     cmd = params.stack_dir + '/package/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_downloadlocation + ' ' + params.solr_user + ' >> ' + params.stack_log
     Execute('echo "Running ' + cmd + '"')
