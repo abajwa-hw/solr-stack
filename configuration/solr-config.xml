@@ -19,9 +19,9 @@
   </property>  
 
   <property>
-    <name>solr.log</name>
-    <value>/var/log/solr.log</value>
-    <description>Log file for Solr service</description>
+    <name>solr.log.dir</name>
+    <value>/var/log/solr</value>
+    <description>Dir for Solr log</description>
   </property> 
 
   <!-- Location that will contain solr stack service related files on all nodes. setup.sh/install.sh will be invoked from here -->

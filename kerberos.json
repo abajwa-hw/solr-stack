@@ -1,0 +1,17 @@
+{
+  "services": [
+    {
+      "name": "SOLR",
+      "identities": [
+        {
+          "name": "/smokeuser"
+        }
+      ],
+      "components": [
+        {
+          "name": "SOLR_MASTER"
+        }
+      ]
+    }
+  ]
+}
