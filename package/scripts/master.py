@@ -56,9 +56,9 @@ class Master(Script):
     env.set_params(status_params)
     self.configure(env)
 
-    #kill the process corresponding to the processid in the pid file
-    Execute (format('kill `cat {stack_pidfile}` >/dev/null 2>&1')) 
-    
+    #kill the instances of solr
+    Execute (format('./opt/solr/latest/bin/solr stop -all'))  
+
     #delete the pid file
     Execute (format("rm -f {stack_pidfile}"))
       	

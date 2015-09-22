@@ -1,5 +1,6 @@
 #!/bin/bash
-set -e 
+set -e
+
 #Path to start.jar e.g. /opt/solr
 SOLR_PATH=$1
 
@@ -26,8 +27,6 @@ if [ ! -f "$PID_FILE" ]
 then
 	cd $START_PATH
 	echo "Starting Solr..."	
-	nohup java -jar start.jar >> $LOGFILE 2>&1 &	
+	./solr start >> $LOGFILE 2>&1 &	
 	echo $! > $PID_FILE
 fi
-
-
