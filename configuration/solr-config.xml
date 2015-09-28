@@ -28,13 +28,13 @@
   <property>
     <name>solr.stack.dir</name>
     <!-- this is a distributed cache dir that will contain service related files on all nodes-->
-    <value>/var/lib/ambari-agent/cache/stacks/HDP/2.2/services/solr-stack</value>
+    <value>/var/lib/ambari-agent/cache/stacks/HDP/2.3/services/solr-stack</value>
     <description>Stack dir from where to run setup/start/stop scripts</description>
   </property> 
     
   <property>
     <name>solr.download.location</name>
-    <value>http://archive.apache.org/dist/lucene/solr/5.0.0/solr-5.0.0.tgz</value>
+    <value>https://archive.apache.org/dist/lucene/solr/5.3.0/solr-5.3.0.tgz</value>
     <description>Location to download Solr from (.tgz format)</description>
   </property>     
 
@@ -46,7 +46,7 @@
   
   <property>
     <name>solr.start.path</name>
-    <value>/opt/solr/latest/server</value>
+    <value>/opt/solr/latest/bin/</value>
     <description>Dir path to start.jar where Solr will be started from</description>
   </property>  
 

@@ -6,4 +6,4 @@ config = Script.get_config()
 
 # store the location of the stack service piddir from the 'stack_piddir' property of the 'solr-env.xml' file
 stack_piddir = config['configurations']['solr-env']['stack_piddir']
-stack_pidfile = format("{stack_piddir}/solr.pid")
+stack_pidfile = format("{stack_piddir}/solr-8983.pid")
