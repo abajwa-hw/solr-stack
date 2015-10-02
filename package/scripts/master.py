@@ -14,10 +14,10 @@ class Master(Script):
     # Install packages listed in metainfo.xml
     self.install_packages(env)
     
+    #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.3/services/SOLR/package
+    service_packagedir = os.path.realpath(__file__).split('/scripts')[0]             
+    Execute('find '+service_packagedir+' -iname "*.sh" | xargs chmod +x')
         
-    #Ensure the shell scripts in the services dir are executable 
-    #Execute('find '+params.service_packagedir+' -iname "*.sh" | xargs chmod +x')
-
     Execute('echo Creating ' +  params.stack_log_dir + ' ' + status_params.stack_piddir)
     Execute('mkdir -p ' + params.stack_log_dir,  ignore_failures=True)
     Execute('mkdir -p ' + status_params.stack_piddir, ignore_failures=True)
