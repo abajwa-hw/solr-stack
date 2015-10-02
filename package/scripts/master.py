@@ -16,7 +16,7 @@ class Master(Script):
     
         
     #Ensure the shell scripts in the services dir are executable 
-    Execute('find '+params.service_packagedir+' -iname "*.sh" | xargs chmod +x')
+    #Execute('find '+params.service_packagedir+' -iname "*.sh" | xargs chmod +x')
 
     Execute('echo Creating ' +  params.stack_log_dir + ' ' + status_params.stack_piddir)
     Execute('mkdir -p ' + params.stack_log_dir,  ignore_failures=True)
