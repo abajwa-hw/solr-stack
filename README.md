@@ -36,8 +36,7 @@ sudo service ambari-server restart
 
 On bottom left -> Actions -> Add service -> check Solr service -> Next -> Next -> Next -> Deploy
 
-On the configuration page, please ensure that you point mvn.dir property to the full path to mvn executable e.g. /usr/bin/mvn
-Also ensure that the install location you are choosing (/opt/solr by default) does not exist
+- Also ensure that the install location you are choosing (/opt/solr by default) does not exist
 
 - On successful deployment you will see the Solr service as part of Ambari stack and will be able to start/stop the service from here:
 ![Image](../master/screenshots/1.png?raw=true)
