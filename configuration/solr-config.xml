@@ -8,7 +8,7 @@
 
   <property>
     <name>solr.cloudmode</name>
-    <value>false</value>
+    <value>true</value>
     <description>Whether Solr should be started in Cloud mode</description>
   </property>  
   
