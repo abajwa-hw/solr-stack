@@ -34,7 +34,7 @@ class Master(Script):
     #form command to invoke setup.sh with its arguments and execute it
     cmd = params.service_packagedir + '/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_user + ' >> ' + params.stack_log
     Execute('echo "Running ' + cmd + '" as root')
-    Execute(cmd)
+    Execute(cmd, ignore_failures=True)
 
     if params.solr_downloadlocation == 'HDPSEARCH':
       Execute('echo HDPSeach mode selected')
