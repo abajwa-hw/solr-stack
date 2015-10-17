@@ -17,18 +17,19 @@ class Master(Script):
     #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.3/services/SOLR/package
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0]             
     Execute('find '+service_packagedir+' -iname "*.sh" | xargs chmod +x')
+
+
+    if params.solr_downloadlocation == 'HDPSEARCH':
+      Execute('yum install -y lucidworks-hdpsearch')
         
     Execute('echo Creating ' +  params.stack_log_dir + ' ' + status_params.stack_piddir)
     Execute('mkdir -p ' + params.stack_log_dir,  ignore_failures=True)
     Execute('mkdir -p ' + status_params.stack_piddir, ignore_failures=True)
     Execute('mkdir -p ' + params.solr_dir,  ignore_failures=True)    
-    Execute('chown ' + params.solr_user + ' ' + params.stack_log_dir)
-    Execute('chown ' + params.solr_user + ' ' + status_params.stack_piddir)    
-    Execute('chown ' + params.solr_user + ' ' + params.solr_dir)    
+    Execute('chown ' + params.solr_user + ' ' + params.stack_log_dir, ignore_failures=True)
+    Execute('chown ' + params.solr_user + ' ' + status_params.stack_piddir, ignore_failures=True)    
+    Execute('chown ' + params.solr_user + ' ' + params.solr_dir, ignore_failures=True)    
 
-
-    if params.solr_downloadlocation == 'HDPSEARCH':
-      Execute('yum install -y lucidworks-hdpsearch')
     
     #form command to invoke setup.sh with its arguments and execute it
     cmd = params.service_packagedir + '/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_user + ' >> ' + params.stack_log
