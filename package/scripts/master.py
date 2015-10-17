@@ -29,7 +29,7 @@ class Master(Script):
     Execute('chown ' + params.solr_user + ' ' + params.stack_log_dir, ignore_failures=True)
     Execute('chown ' + params.solr_user + ' ' + status_params.stack_piddir, ignore_failures=True)    
     Execute('chown ' + params.solr_user + ' ' + params.solr_dir, ignore_failures=True)    
-
+    Execute('touch ' + params.stack_log, owner=params.solr_user)
     
     #form command to invoke setup.sh with its arguments and execute it
     cmd = params.service_packagedir + '/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_user + ' >> ' + params.stack_log
