@@ -44,7 +44,7 @@ class Master(Script):
       Execute('cd ' + params.solr_dir + '; ln -s solr-* latest', user=params.solr_user)
       
     if params.solr_cloudmode:      
-      Execute (params.cloud_scripts + '/zkcli.sh -zkhost ' + params.zookeeper_hosts + ' -cmd makepath ' + params.solr_znode )  
+      Execute (params.cloud_scripts + '/zkcli.sh -zkhost ' + params.zookeeper_hosts + ' -cmd makepath ' + params.solr_znode, user=params.solr_user, ignore_failures=True )  
     
     Execute ('echo "Solr install complete"')
 
