@@ -43,9 +43,10 @@ class Master(Script):
             content=''
     )
 
-
+    Execute('Solr dir: ' + params.solr_dir)
+    
     if params.solr_bindir == 'UNDEFINED' or params.cloud_scripts == 'UNDEFINED':
-      Execute('Error: solr_bin: ' + params.solr_bindir + ' cloud_scripts: ' + params.cloud_scripts)
+      Execute('echo Error: solr_bin: ' + params.solr_bindir + ' cloud_scripts: ' + params.cloud_scripts)
       Execute('zxzxz')
                
     if params.solr_downloadlocation == 'HDPSEARCH':
