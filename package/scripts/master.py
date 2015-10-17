@@ -26,6 +26,9 @@ class Master(Script):
     Execute('chown ' + params.solr_user + ' ' + status_params.stack_piddir)    
     Execute('chown ' + params.solr_user + ' ' + params.solr_dir)    
 
+
+    if params.solr_downloadlocation == 'HDPSEARCH':
+      Execute('yum install -y lucidworks-hdpsearch')
     
     #form command to invoke setup.sh with its arguments and execute it
     cmd = params.service_packagedir + '/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_user + ' >> ' + params.stack_log
@@ -33,7 +36,7 @@ class Master(Script):
     Execute(cmd, user=params.solr_user)
 
     if params.solr_downloadlocation == 'HDPSEARCH':
-      Execute('yum install -y lucidworks-hdpsearch')
+      Execute('echo HDPSeach mode selected')
     else:
       Execute('cd ' + params.solr_dir + '; wget ' + params.solr_downloadlocation + ' -O solr.tgz -a ' + params.stack_log, user=params.solr_user)
       Execute('cd ' + params.solr_dir + '; tar -xvf solr.tgz', user=params.solr_user)
