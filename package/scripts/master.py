@@ -1,4 +1,4 @@
-import sys, os, pwd, signal, time
+import sys, os, pwd, grp, signal, time
 from resource_management import *
 from subprocess import call
 
@@ -18,6 +18,14 @@ class Master(Script):
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0]             
     Execute('find '+service_packagedir+' -iname "*.sh" | xargs chmod +x')
 
+    try: grp.getgrnam(params.solr_group)
+    except KeyError: Group(group_name=params.solr_group) 
+    
+    try: pwd.getpwnam(params.solr_user)
+    except KeyError: User(username=params.solr_user, 
+                          gid=params.solr_group, 
+                          groups=[params.solr_group], 
+                          ignore_failures=True)    
 
     if params.solr_downloadlocation == 'HDPSEARCH':
       Execute('yum install -y lucidworks-hdpsearch')

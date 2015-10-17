@@ -19,8 +19,16 @@
   <property>
     <name>solr.user</name>
     <value>solr</value>
+    <property-type>USER</property-type>
     <description>Solr user</description>
   </property>  
+
+  <property>
+    <name>solr.group</name>
+    <value>solr</value>
+    <property-type>GROUP</property-type>
+    <description>Solr group</description>
+  </property> 
 
 
   <!-- solr.in.sh -->

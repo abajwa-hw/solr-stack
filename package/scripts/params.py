@@ -32,6 +32,7 @@ zookeeper_hosts = ",".join(config['clusterHostInfo']['zookeeper_hosts'])
 
 
 solr_user = config['configurations']['solr-env']['solr.user']
+solr_group = config['configurations']['solr-env']['solr.group']
 # store the log file for the service from the 'solr.log' property of the 'solr-env.xml' file
 stack_log_dir = config['configurations']['solr-env']['solr.log.dir']
 stack_log = stack_log_dir+'/solr.log'
