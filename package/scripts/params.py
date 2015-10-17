@@ -18,8 +18,11 @@ if solr_downloadlocation == 'HDPSEARCH':
 
 if os.path.exists(solr_dir + '/latest/bin/'):
   solr_bindir = solr_dir + '/latest/bin/' 
+  cloud_scripts=solr_dir+'/latest/server/scripts/cloud-scripts'
+  
 elif os.path.exists(solr_dir + '/bin/'):
   solr_bindir = solr_dir + '/bin/'
+  cloud_scripts=solr_dir+'/server/scripts/cloud-scripts'
 else:
   solr_bindir = 'UNDEFINED'
   
@@ -37,4 +40,3 @@ solr_env_content = config['configurations']['solr-env']['content']
 #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/solr-stack/package
 service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
 
-cloud_scripts=solr_dir+'/server/scripts/cloud-scripts'
