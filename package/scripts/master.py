@@ -43,7 +43,7 @@ class Master(Script):
             content=''
     )
 
-    Execute('Solr dir: ' + params.solr_dir)
+    Execute('echo Solr dir: ' + params.solr_dir)
     
     if params.solr_bindir == 'UNDEFINED' or params.cloud_scripts == 'UNDEFINED':
       Execute('echo Error: solr_bin: ' + params.solr_bindir + ' cloud_scripts: ' + params.cloud_scripts)
