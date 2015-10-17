@@ -25,6 +25,7 @@ elif os.path.exists(solr_dir + '/bin/'):
   cloud_scripts=solr_dir+'/server/scripts/cloud-scripts'
 else:
   solr_bindir = 'UNDEFINED'
+  cloud_scripts= 'UNDEFINED'
   
 #get comma separated list of zookeeper hosts from clusterHostInfo
 zookeeper_hosts = ",".join(config['clusterHostInfo']['zookeeper_hosts'])
