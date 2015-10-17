@@ -40,6 +40,7 @@
                 <packages>
                    <package><name>wget</name></package>   
                    <package><name>tar</name></package>                                                                   
+                   <package><name>lsof</name></package>                                                                   
                 </packages>
               </osSpecific>
             </osSpecifics> 

@@ -3,11 +3,8 @@
 #Path to install Solr to e.g. /opt/solr
 SOLR_PATH=$1
 
-#Url to download Solr from
-SOLR_DOWNLOAD_LOCATION=$2
-
 #solr user e.g. solr
-SOLR_USER=$3
+SOLR_USER=$2
 
 
     echo "Starting Solr install"
@@ -29,11 +26,4 @@ SOLR_USER=$3
     	sudo -u hdfs hdfs dfs -chown $SOLR_USER /user/solr 
 	fi
 	
-	#set -e 
-    #download solr tgz and untar it
-    #echo "Downloading Solr"
-    #cd $SOLR_PATH
-    #wget $SOLR_DOWNLOAD_LOCATION -O solr.tgz
-    #tar -xvzf solr.tgz
-    #ln -s solr-* latest
-    #echo "Solr install complete"
+

@@ -10,6 +10,19 @@
     <description>Solr Process ID Directory</description>
   </property> 
 
+  <property>
+    <name>solr.log.dir</name>
+    <value>/var/log/solr</value>
+    <description>Dir for Solr log</description>
+  </property> 
+  
+  <property>
+    <name>solr.user</name>
+    <value>solr</value>
+    <description>Solr user</description>
+  </property>  
+
+
   <!-- solr.in.sh -->
 
   <property>

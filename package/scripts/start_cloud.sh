@@ -29,10 +29,12 @@ fi
 #start Solr if not already started from $START_PATH dir
 if [ ! -f "$PID_FILE" ]
 then
-	cd $SOLR_PATH/latest/bin
-	echo "Starting Solr Cloud..." >> $LOGFILE	
-	echo "$SOLR_PATH/latest/bin/solr start -cloud -z $ZOOKEEPER_HOSTS -noprompt" >> $LOGFILE	
+	cd $START_PATH
 	OUTPUT=`./solr start -cloud -z $ZOOKEEPER_HOSTS -noprompt`
+	
+	echo "Starting Solr Cloud..." >> $LOGFILE	
+	echo "$START_PATH/solr start -cloud -z $ZOOKEEPER_HOSTS -noprompt" >> $LOGFILE	
+
 	echo $OUTPUT >> $LOGFILE	
 	PID=`echo $OUTPUT | sed -e 's/.*pid=\(.*\)).*/\1/'`
 	echo $PID > $PID_FILE

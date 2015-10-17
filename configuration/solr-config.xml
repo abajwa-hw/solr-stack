@@ -15,34 +15,21 @@
   <property>
     <name>solr.dir</name>
     <value>/opt/solr</value>
-    <description>Path to Solr root</description>
+    <description>Path to Solr root. If HDPSearch is selected, it will be installed under /opt/lucidworks-hdpsearch/solr/</description>
   </property>  
-
-  <property>
-    <name>solr.log.dir</name>
-    <value>/var/log/solr</value>
-    <description>Dir for Solr log</description>
-  </property> 
-
 
   <property>
     <name>solr.download.location</name>
     <value>https://archive.apache.org/dist/lucene/solr/5.3.0/solr-5.3.0.tgz</value>
-    <description>Location to download Solr from (.tgz format)</description>
+    <description>Location to download Solr from (.tgz format). Set this to HDPSEARCH to download HDPSearch from yum repo instead</description>
   </property>     
-
-  <property>
-    <name>solr.user</name>
-    <value>solr</value>
-    <description>Solr user</description>
-  </property>  
   
-  <property>
-    <name>solr.start.path</name>
-    <value>/opt/solr/latest/bin/</value>
-    <description>Dir path to start.jar where Solr will be started from</description>
-  </property>  
 
+  <property>
+    <name>solr.znode</name>
+    <value>/solr</value>
+    <description>Zookeeper znode (only used if cloudmode is true)</description>
+  </property>  
   
 </configuration>
 

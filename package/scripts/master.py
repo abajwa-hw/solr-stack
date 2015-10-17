@@ -28,13 +28,20 @@ class Master(Script):
 
     
     #form command to invoke setup.sh with its arguments and execute it
-    cmd = params.service_packagedir + '/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_downloadlocation + ' ' + params.solr_user + ' >> ' + params.stack_log
+    cmd = params.service_packagedir + '/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_user + ' >> ' + params.stack_log
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd, user=params.solr_user)
 
-    Execute('cd ' + params.solr_dir + '; wget ' + params.solr_downloadlocation + ' -O solr.tgz -a ' + params.stack_log, user=params.solr_user)
-    Execute('cd ' + params.solr_dir + '; tar -xvf solr.tgz', user=params.solr_user)
-    Execute('cd ' + params.solr_dir + '; ln -s solr-* latest', user=params.solr_user)
+    if params.solr_downloadlocation == 'HDPSEARCH':
+      Execute('yum install -y lucidworks-hdpsearch')
+    else:
+      Execute('cd ' + params.solr_dir + '; wget ' + params.solr_downloadlocation + ' -O solr.tgz -a ' + params.stack_log, user=params.solr_user)
+      Execute('cd ' + params.solr_dir + '; tar -xvf solr.tgz', user=params.solr_user)
+      Execute('cd ' + params.solr_dir + '; ln -s solr-* latest', user=params.solr_user)
+      
+    if params.solr_cloudmode:      
+      Execute (params.cloud_scripts + '/zkcli.sh -zkhost ' + params.zookeeper_hosts + ' -cmd makepath ' + params.solr_znode )  
+    
     Execute ('echo "Solr install complete"')
 
 
@@ -45,7 +52,7 @@ class Master(Script):
     
     #write content in jinja text field to solr.in.sh
     env_content=InlineTemplate(params.solr_env_content)
-    File(format("{params.solr_dir}/latest/bin/solr.in.sh"), content=env_content, owner=params.solr_user)    
+    File(format("{params.solr_bindir}/solr.in.sh"), content=env_content, owner=params.solr_user)    
     
 
   #Call start.sh to start the service
@@ -60,9 +67,9 @@ class Master(Script):
     
     #form command to invoke start.sh with its arguments and execute it
     if params.solr_cloudmode:
-      cmd = params.service_packagedir + '/scripts/start_cloud.sh ' + params.solr_dir + ' ' + params.stack_log + ' ' + status_params.stack_pidfile + ' ' + params.solr_startpath + ' ' + params.zookeeper_hosts
+      cmd = params.service_packagedir + '/scripts/start_cloud.sh ' + params.solr_dir + ' ' + params.stack_log + ' ' + status_params.stack_pidfile + ' ' + params.solr_bindir + ' ' + params.zookeeper_hosts + params.solr_znode
     else:
-      cmd = params.service_packagedir + '/scripts/start.sh ' + params.solr_dir + ' ' + params.stack_log + ' ' + status_params.stack_pidfile + ' ' + params.solr_startpath
+      cmd = params.service_packagedir + '/scripts/start.sh ' + params.solr_dir + ' ' + params.stack_log + ' ' + status_params.stack_pidfile + ' ' + params.solr_bindir
 
       
     Execute('echo "Running cmd: ' + cmd + '"')    
@@ -80,7 +87,7 @@ class Master(Script):
     #self.configure(env)
 
     #kill the instances of solr
-    Execute (format('./opt/solr/latest/bin/solr stop -all'))  
+    Execute (format('{params.solr_bindir}/solr stop -all'))  
 
     #delete the pid file
     Execute (format("rm -f {stack_pidfile}"), user=params.solr_user)
