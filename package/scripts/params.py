@@ -15,17 +15,24 @@ solr_znode = config['configurations']['solr-config']['solr.znode']
 
 if solr_downloadlocation == 'HDPSEARCH':
   solr_dir='/opt/lucidworks-hdpsearch/solr'
-
-if os.path.exists(solr_dir + '/latest/bin/'):
+  solr_bindir = solr_dir + '/bin/'
+  cloud_scripts=solr_dir+'/server/scripts/cloud-scripts'  
+else:
   solr_bindir = solr_dir + '/latest/bin/' 
   cloud_scripts=solr_dir+'/latest/server/scripts/cloud-scripts'
+
+#if os.path.exists(solr_dir + '/latest/bin/'):
+#  solr_bindir = solr_dir + '/latest/bin/' 
+#  cloud_scripts=solr_dir+'/latest/server/scripts/cloud-scripts'
   
-elif os.path.exists(solr_dir + '/bin/'):
-  solr_bindir = solr_dir + '/bin/'
-  cloud_scripts=solr_dir+'/server/scripts/cloud-scripts'
-else:
-  solr_bindir = 'UNDEFINED'
-  cloud_scripts= 'UNDEFINED'
+#elif os.path.exists(solr_dir + '/bin/'):
+#  solr_bindir = solr_dir + '/bin/'
+#  cloud_scripts=solr_dir+'/server/scripts/cloud-scripts'
+#else:
+#  solr_bindir = 'UNDEFINED'
+#  cloud_scripts= 'UNDEFINED'
+  
+
   
 #get comma separated list of zookeeper hosts from clusterHostInfo
 zookeeper_hosts = ",".join(config['clusterHostInfo']['zookeeper_hosts'])
