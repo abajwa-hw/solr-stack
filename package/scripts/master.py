@@ -27,17 +27,33 @@ class Master(Script):
                           groups=[params.solr_group], 
                           ignore_failures=True)    
 
+    Directory([params.stack_log_dir, status_params.stack_piddir, params.solr_dir],
+              mode=0755,
+              cd_access='a',
+              owner=params.solr_user,
+              group=params.solr_group,
+              recursive=True
+          )
+
+
+    File(params.stack_log,
+            mode=0644,
+            group=params.solr_user,
+            owner=group=params.solr_group,
+            content=''
+    )
+             
     if params.solr_downloadlocation == 'HDPSEARCH':
       Execute('yum install -y lucidworks-hdpsearch')
         
-    Execute('echo Creating ' +  params.stack_log_dir + ' ' + status_params.stack_piddir)
-    Execute('mkdir -p ' + params.stack_log_dir,  ignore_failures=True)
-    Execute('mkdir -p ' + status_params.stack_piddir, ignore_failures=True)
-    Execute('mkdir -p ' + params.solr_dir,  ignore_failures=True)    
-    Execute('chown ' + params.solr_user + ' ' + params.stack_log_dir, ignore_failures=True)
-    Execute('chown ' + params.solr_user + ' ' + status_params.stack_piddir, ignore_failures=True)    
-    Execute('chown ' + params.solr_user + ' ' + params.solr_dir, ignore_failures=True)    
-    Execute('touch ' + params.stack_log, owner=params.solr_user)
+    #Execute('echo Creating ' +  params.stack_log_dir + ' ' + status_params.stack_piddir)
+    #Execute('mkdir -p ' + params.stack_log_dir,  ignore_failures=True)
+    #Execute('mkdir -p ' + status_params.stack_piddir, ignore_failures=True)
+    #Execute('mkdir -p ' + params.solr_dir,  ignore_failures=True)    
+    #Execute('chown ' + params.solr_user + ':' + params.solr_group +  ' ' + params.stack_log_dir, ignore_failures=True)
+    #Execute('chown ' + params.solr_user + ':' + params.solr_group + ' ' + status_params.stack_piddir, ignore_failures=True)    
+    #Execute('chown ' + params.solr_user + ':' + params.solr_group + ' ' + params.solr_dir, ignore_failures=True)    
+    #Execute('touch ' + params.stack_log, owner=params.solr_user)
     
     #form command to invoke setup.sh with its arguments and execute it
     cmd = params.service_packagedir + '/scripts/setup.sh ' + params.solr_dir + ' ' + params.solr_user + ' >> ' + params.stack_log
