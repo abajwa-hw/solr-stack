@@ -38,7 +38,7 @@ class Master(Script):
 
     File(params.stack_log,
             mode=0644,
-            group=params.solr_user,
+            owner=params.solr_user,
             group=params.solr_group,
             content=''
     )
