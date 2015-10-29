@@ -36,6 +36,7 @@ else:
   
 #get comma separated list of zookeeper hosts from clusterHostInfo
 zookeeper_hosts = ",".join(config['clusterHostInfo']['zookeeper_hosts'])
+java64_home = params.config['hostLevelParams']['java_home']
 
 
 solr_user = config['configurations']['solr-env']['solr.user']
