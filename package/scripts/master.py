@@ -47,7 +47,7 @@ class Master(Script):
       
     if params.solr_bindir == 'UNDEFINED' or params.cloud_scripts == 'UNDEFINED':
       Execute('echo Error: solr_bin: ' + params.solr_bindir + ' cloud_scripts: ' + params.cloud_scripts)
-      Execute('zxzxz')
+
                
     if params.solr_downloadlocation == 'HDPSEARCH':
       Execute('yum install -y lucidworks-hdpsearch')
@@ -63,7 +63,10 @@ class Master(Script):
       Execute('cd ' + params.solr_dir + '; wget ' + params.solr_downloadlocation + ' -O solr.tgz -a ' + params.stack_log, user=params.solr_user)
       Execute('cd ' + params.solr_dir + '; tar -xvf solr.tgz', user=params.solr_user)
       Execute('cd ' + params.solr_dir + '; ln -s solr-* latest', user=params.solr_user)
-      
+    
+    #ensure all solr files owned   by solr
+    Execute('chown -R '+params.solr_user + ':' + params.solr_group + ' ' + params.solr_dir)            
+    
     if params.solr_cloudmode:      
       Execute ('echo "Creating znode" ' + params.solr_znode)
       Execute ('echo "' + params.cloud_scripts + '/zkcli.sh -zkhost ' + params.zookeeper_hosts + ' -cmd makepath ' + params.solr_znode + '"')
