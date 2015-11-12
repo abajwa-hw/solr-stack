@@ -50,6 +50,13 @@ if not solr_datadir.strip():
 
 solr_data_resources_dir = os.path.join(solr_datadir,'resources')
 
+<<<<<<< HEAD
+=======
+  
+#get comma separated list of zookeeper hosts from clusterHostInfo
+zookeeper_hosts = ",".join(config['clusterHostInfo']['zookeeper_hosts'])
+java64_home = config['hostLevelParams']['java_home']
+>>>>>>> 9f5100e56293c8e591328e4c0b7e908354924c33
 
 
 solr_user = config['configurations']['solr-env']['solr.user']
