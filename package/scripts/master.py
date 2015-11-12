@@ -50,11 +50,6 @@ class Master(Script):
     if params.solr_downloadlocation == 'HDPSEARCH':
       Execute('export JAVA_HOME='+params.java64_home+';yum install -y lucidworks-hdpsearch')
         
-    #form command to invoke setup_solr.sh with its arguments and execute it
-    cmd = params.service_packagedir + '/scripts/setup_solr.sh ' + params.solr_dir + ' ' + params.solr_user + ' >> ' + params.solr_log
-    Execute('echo "Running ' + cmd + '" as root')
-    Execute(cmd, ignore_failures=True)
-
           
     if params.solr_downloadlocation == 'HDPSEARCH':
       Execute('echo HDPSeach mode selected')
@@ -112,13 +107,19 @@ class Master(Script):
     env.set_params(params)
         
     Execute('find '+params.service_packagedir+' -iname "*.sh" | xargs chmod +x')
+
+    #form command to invoke setup_solr.sh with its arguments and execute it
+    cmd = format("{service_packagedir}/scripts/setup_solr.sh {solr_dir} {solr_user} >> {solr_log}")
+    Execute('echo "Running ' + cmd + '" as root')
+    Execute(cmd, ignore_failures=True)
     
      
     #form command to invoke start.sh with its arguments and execute it
     if params.solr_cloudmode:
       Execute ('echo "Creating znode" ' + params.solr_znode)
       Execute ('echo "' + params.cloud_scripts + '/zkcli.sh -zkhost ' + params.zookeeper_hosts + ' -cmd makepath ' + params.solr_znode + '"')
-      Execute ('export JAVA_HOME='+params.java64_home+';'+params.cloud_scripts + '/zkcli.sh -zkhost ' + params.zookeeper_hosts + ' -cmd makepath ' + params.solr_znode, user=params.solr_user, ignore_failures=True )  
+      #Execute ('export JAVA_HOME='+params.java64_home+';'+params.cloud_scripts + '/zkcli.sh -zkhost ' + params.zookeeper_hosts + ' -cmd makepath ' + params.solr_znode, user=params.solr_user, ignore_failures=True )  
+      Execute (format("export JAVA_HOME={java64_home};{cloud_scripts}/zkcli.sh -zkhost {zookeeper_hosts} -cmd makepath {solr_znode}"), user=params.solr_user, ignore_failures=True)
     
       #$SOLR_IN_PATH/solr.in.sh ./solr start -cloud -noprompt -s $SOLR_DATA_DIR
       Execute(format('SOLR_INCLUDE={solr_conf}/solr.in.sh {solr_bindir}/solr start -cloud -noprompt -s {solr_datadir} >> {solr_log}'), user=params.solr_user)
