@@ -4,6 +4,6 @@ from resource_management import *
 # config object that holds the status related configurations declared in the -env.xml file
 config = Script.get_config()
 
-# store the location of the stack service piddir from the 'stack_piddir' property of the 'solr-env.xml' file
-stack_piddir = config['configurations']['solr-env']['stack_piddir']
-stack_pidfile = format("{stack_piddir}/solr-8983.pid")
+solr_piddir = config['configurations']['solr-env']['solr_pid_dir']
+solr_port = config['configurations']['solr-env']['solr.port']
+solr_pidfile = format("{solr_piddir}/solr-{solr_port}.pid")

@@ -30,6 +30,32 @@
     <value>/solr</value>
     <description>Zookeeper znode (only used if cloudmode is true)</description>
   </property>  
+
+
+
+  <property>
+    <name>solr.minmem</name>
+    <value>512m</value>
+    <description>Solr minimum heap size e.g.512m </description>
+  </property> 
+
+  <property>
+    <name>solr.maxmem</name>
+    <value>512m</value>
+    <description>Solr maximum heap size e.g. 512m</description>
+  </property> 
+
+  <property>
+    <name>solr.datadir</name>
+    <value> </value>
+    <description>(Optional) Dir for Solr data where solr.xml and zoo.cfg will be created. If empty, will default to SOLR_HOME/server/solr</description>
+  </property> 
   
+  <property>
+    <name>solr.conf</name>
+    <value> </value>
+    <description>(Optional) Dir containing solr.in.sh. If empty, will default to SOLR_HOME/bin</description>
+  </property> 
+    
 </configuration>
 
