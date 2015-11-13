@@ -9,11 +9,24 @@ config = Script.get_config()
 #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.3/services/SOLR/package
 service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
 
-#sahred configs
+#shared configs
 java64_home = config['hostLevelParams']['java_home']  
 #get comma separated list of zookeeper hosts from clusterHostInfo
 zookeeper_hosts = ",".join(config['clusterHostInfo']['zookeeper_hosts'])
 cluster_name=str(config['clusterName'])
+
+#form the zk quorum string
+zookeeper_port=default('/configurations/zoo.cfg/clientPort', None)
+#get comma separated list of zookeeper hosts from clusterHostInfo
+index = 0 
+zookeeper_quorum=""
+for host in config['clusterHostInfo']['zookeeper_hosts']:
+  zookeeper_quorum += host + ":"+str(zookeeper_port)
+  index += 1
+  if index < len(config['clusterHostInfo']['zookeeper_hosts']):
+    zookeeper_quorum += ","
+
+
 
 #####################################
 #Solr configs
