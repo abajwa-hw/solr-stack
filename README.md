@@ -72,7 +72,8 @@ git clone https://github.com/abajwa-hw/solr-stack.git /var/lib/ambari-server/res
 ```    
 
 - Ensure that by default, Solr is started on multiple nodes (3 in this example)
-  - Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.0.6/services/stack_advisor.py` file to:
+  - Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.0.6/services/stack_advisor.py` file
+from:
 ```
   def getMastersWithMultipleInstances(self):
     return ['ZOOKEEPER_SERVER', 'HBASE_MASTER']      
