@@ -65,12 +65,14 @@ git clone https://github.com/abajwa-hw/solr-stack.git /var/lib/ambari-server/res
 ```
 
 
-- Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.3/role_command_order.json` file to include below:
+- Ensure Solr is only started after Zookeeper
+  - Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.3/role_command_order.json` file to include below:
 ```
 "SOLR_MASTER-START" : ["ZOOKEEPER_SERVER-START"],
 ```    
 
-- Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.0.6/services/stack_advisor.py` file to:
+- Ensure that by default, Solr is started on multiple nodes (3 in this example)
+  - Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.0.6/services/stack_advisor.py` file to:
 ```
   def getMastersWithMultipleInstances(self):
     return ['ZOOKEEPER_SERVER', 'HBASE_MASTER']      
@@ -109,7 +111,7 @@ curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/hosts
 service ambari-agent status
 ```
 
-- (Optional) - In general you can generate BP and cluster file using Ambari recommendations API using these steps. However in this example we are providing some sample blueprints which you can edit, so this is not needed
+- (Optional) - Generate Amabri Blueprint and cluster file using Ambari recommendations API using below steps.  
 For more details, on the bootstrap scripts see bootstrap script git
 
 ```
@@ -129,7 +131,7 @@ cd ambari-bootstrap/deploy
 bash ./deploy-recommended-cluster.bash
 ```
 
-- Edit `/root/ambari-bootstrap/deploy/tempdir*/blueprint.json` to include configurations for Ranger audits in Solr
+- Configure your Solr install by editting `/root/ambari-bootstrap/deploy/tempdir*/blueprint.json`. For example to include configurations for Ranger audits in Solr make below changes:
 ```
     {
       "solr-config": {
@@ -145,11 +147,11 @@ bash ./deploy-recommended-cluster.bash
     },
 
 ```
-- Register BP
+- Register Bluprint
 ```
 curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/blueprints/recommended -d @blueprint.json
 ```
-- Deploy BP
+- Deploy Blueprint
 ```
 curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clusters/solrCluster -d @cluster.json
 ```
