@@ -45,6 +45,115 @@ On bottom left -> Actions -> Add service -> check Solr service -> Next -> Next -
 ![Image](../master/screenshots/2.png?raw=true)
 
 
+
+#### Option 2: Automated deployment of fresh cluster via blueprint
+
+- Bring up 4 VMs imaged with RHEL/CentOS 6.x (e.g. node1-4 in this case)
+
+- On non-ambari nodes, install ambari-agents and point them to ambari node (e.g. node1 in this case)
+```
+export ambari_server=node1
+curl -sSL https://raw.githubusercontent.com/seanorama/ambari-bootstrap/master/ambari-bootstrap.sh | sudo -E sh
+```
+
+- On Ambari node, install ambari-server
+```
+export install_ambari_server=true
+curl -sSL https://raw.githubusercontent.com/seanorama/ambari-bootstrap/master/ambari-bootstrap.sh | sudo -E sh
+yum install -y git
+git clone https://github.com/abajwa-hw/solr-stack.git /var/lib/ambari-server/resources/stacks/HDP/2.3/services/SOLR
+```
+
+
+- Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.3/role_command_order.json` file to include below:
+```
+"SOLR_MASTER-START" : ["ZOOKEEPER_SERVER-START"],
+```    
+
+- Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.0.6/services/stack_advisor.py` file to:
+```
+  def getMastersWithMultipleInstances(self):
+    return ['ZOOKEEPER_SERVER', 'HBASE_MASTER']      
+```
+```
+  def getCardinalitiesDict(self):
+    return {
+      'ZOOKEEPER_SERVER': {"min": 3},
+      'HBASE_MASTER': {"min": 1},
+      }
+```
+to:
+```
+  def getMastersWithMultipleInstances(self):
+    return ['ZOOKEEPER_SERVER', 'HBASE_MASTER','SOLR_MASTER']
+```
+```
+  def getCardinalitiesDict(self):
+    return {
+      'ZOOKEEPER_SERVER': {"min": 3},
+      ’SOLR_MASTER': {"min": 3},
+      'HBASE_MASTER': {"min": 1},
+      }
+      
+```
+
+- Restart Ambari
+```
+service ambari-server restart
+service ambari-agent restart    
+```
+
+- Confirm 4 agents were registered and agent remained up
+```
+curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/hosts
+service ambari-agent status
+```
+
+- (Optional) - In general you can generate BP and cluster file using Ambari recommendations API using these steps. However in this example we are providing some sample blueprints which you can edit, so this is not needed
+For more details, on the bootstrap scripts see bootstrap script git
+
+```
+yum install -y python-argparse
+git clone https://github.com/seanorama/ambari-bootstrap.git
+
+#optional - limit the services for faster deployment
+
+#for minimal services
+export ambari_services="HDFS MAPREDUCE2 YARN ZOOKEEPER HIVE SOLR"
+
+#for most services
+#export ambari_services="ACCUMULO FALCON FLUME HBASE HDFS HIVE KAFKA KNOX MAHOUT OOZIE PIG SLIDER SPARK SQOOP MAPREDUCE2 STORM TEZ YARN ZOOKEEPER SOLR"
+
+export deploy=false
+cd ambari-bootstrap/deploy
+bash ./deploy-recommended-cluster.bash
+```
+
+- Edit `/root/ambari-bootstrap/deploy/tempdir*/blueprint.json` to include configurations for Ranger audits in Solr
+```
+    {
+      "solr-config": {
+        "solr.datadir": "/opt/ranger_audit_server",
+        "solr.download.location": "HDPSEARCH",
+        "solr.znode":"/ranger_audits"
+        }  
+    },
+    {
+      "solr-env": {
+        "solr.port": "6083"
+        }
+    },
+
+```
+- Register BP
+```
+curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/blueprints/recommended -d @blueprint.json
+```
+- Deploy BP
+```
+curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clusters/solrCluster -d @cluster.json
+```
+
 #### Use Solr 
 
 - Lauch the Solr webapp via navigating to http://sandbox.hortonworks.com:8983/
