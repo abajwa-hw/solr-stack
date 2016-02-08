@@ -112,7 +112,7 @@ curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/hosts
 service ambari-agent status
 ```
 
-- (Optional) - Generate Amabri Blueprint and cluster file using Ambari recommendations API using below steps.  
+- (Optional) - Generate Ambari Blueprint and cluster file using Ambari recommendations API using below steps.  
 For more details, on the bootstrap scripts see bootstrap script git
 
 ```
