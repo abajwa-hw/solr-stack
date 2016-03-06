@@ -1,8 +1,16 @@
-#### An Ambari Stack for Solr
-Ambari stack for easily installing and managing Solr on HDP cluster
+#### An Ambari Service for Solr
+Ambari service for easily installing and managing Solr/HdpSearch on both existing HDP clusters or fresh installs via blueprints
 
-- Download HDP 2.2 sandbox VM image (Sandbox_HDP_2.2_VMware.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
-- Import Sandbox_HDP_2.2_VMware.ova into VMWare and set the VM memory size to 8GB
+Limitations:
+- This is not an officially supported service and *is not meant to be deployed in production systems*. It is only meant for testing demo/purposes
+- It does not support Ambari/HDP upgrade process and will cause upgrade problems if not removed prior to upgrade
+- Not tested on secured clusters
+
+
+Steps:
+
+- Download HDP 2.4 sandbox VM image (Hortonworks_sanbox_with_hdp_2_4_vmware.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
+- Import Hortonworks_sanbox_with_hdp_2_4_vmware.ova into VMWare and set the VM memory size to 8GB
 - Now start the VM
 - After it boots up, find the IP address of the VM and add an entry into your machines hosts file e.g.
 ```
@@ -13,10 +21,7 @@ Ambari stack for easily installing and managing Solr on HDP cluster
 ssh root@sandbox.hortonworks.com
 /root/start_ambari.sh
 ```
-- If you are running on sandbox, Solr is already installed under /opt/solr. You can either rename this dir or install the service to different dir 
-```
-mv /opt/solr /opt/solr-orig
-```
+
 - To deploy the Solr stack, run below
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
@@ -132,7 +137,8 @@ cd ambari-bootstrap/deploy
 bash ./deploy-recommended-cluster.bash
 ```
 
-- Configure your Solr install by editting `/root/ambari-bootstrap/deploy/tempdir*/blueprint.json`. For example to include configurations for Ranger audits in Solr make below changes:
+- Configure your Solr install by editting `/root/ambari-bootstrap/deploy/tempdir*/blueprint.json`. 
+For example to include configurations for Ranger audits in Solr make below changes:
 ```
     {
       "solr-config": {
