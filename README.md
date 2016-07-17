@@ -171,6 +171,19 @@ curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clust
 ![Image](../master/screenshots/3.png?raw=true)
 
 
+- Create a test collection. The below creates a collection names testCollection with 1 shard and replication factor of 1, but you can repeat as necessary
+```
+export JAVA_HOME=<JAVA_HOME>
+
+/opt/lucidworks-hdpsearch/solr/bin/solr create -c testCollection \
+   -d data_driven_schema_configs \
+   -s 1 \
+   -rf 1 
+```
+
+- Once the collection is created, you can view the graph of all collections in Solr Ui under Cloud > Graph. Here is a sample screenshot showing 3 collections with multiple shards
+![Image](../master/screenshots/solrui.png?raw=true)
+
 
 - One benefit to wrapping the component in Ambari service is that you can now monitor/manage this service remotely via REST API
 ```
