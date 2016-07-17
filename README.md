@@ -184,6 +184,8 @@ export JAVA_HOME=<JAVA_HOME>
 - Once the collection is created, you can view the graph of all collections in Solr Ui under Cloud > Graph. Here is a sample screenshot showing 3 collections with multiple shards
 ![Image](../master/screenshots/solrui.png?raw=true)
 
+- Now that you have Solr running you can try some of the [tutorials from HCC](https://community.hortonworks.com/search.html?f=&type=kbentry&redirect=search%2Fsearch&sort=relevance&q=solr&redirect=search%2Fsearch) e.g. 
+  - https://community.hortonworks.com/articles/1160/index-documents-using-hdpsearch-in-hdp-23.html
 
 - One benefit to wrapping the component in Ambari service is that you can now monitor/manage this service remotely via REST API
 ```
