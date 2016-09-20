@@ -129,7 +129,7 @@ class Master(Script):
       Execute(format('SOLR_INCLUDE={solr_conf}/solr.in.sh {solr_bindir}/solr start -cloud -noprompt -s {solr_datadir} >> {solr_log}'), user=params.solr_user)
       
       if params.demo_mode:
-        Execute(format('SOLR_INCLUDE={solr_conf}/solr.in.sh {solr_bindir}/solr create -c tweets -d data_driven_schema_configs -s 1 -rf 1 >> {solr_log}'), user=params.solr_user)
+        Execute(format('SOLR_INCLUDE={solr_conf}/solr.in.sh {solr_bindir}/solr create -c tweets -d data_driven_schema_configs -s 1 -rf 1 >> {solr_log}'), user=params.solr_user, ignore_failures=True)
       
     else:
       cmd = params.service_packagedir + '/scripts/start.sh ' + params.solr_dir + ' ' + params.solr_log + ' ' + status_params.solr_pidfile + ' ' + params.solr_bindir

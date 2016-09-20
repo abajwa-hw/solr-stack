@@ -17,6 +17,12 @@
   </property> 
   
   <property>
+    <name>solr.ssl</name>
+    <value>false</value>
+    <description>SSL not yet supported</description>
+  </property>
+    
+  <property>
     <name>solr.log.dir</name>
     <value>/var/log/solr</value>
     <description>Dir for Solr log</description>
