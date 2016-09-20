@@ -41,6 +41,7 @@ solr_znode = config['configurations']['solr-config']['solr.znode']
 solr_port = config['configurations']['solr-env']['solr.port']
 solr_min_mem = config['configurations']['solr-config']['solr.minmem']
 solr_max_mem = config['configurations']['solr-config']['solr.maxmem']
+demo_mode = config['configurations']['solr-config']['solr.demo_mode']
 
 
 if solr_downloadlocation == 'HDPSEARCH':

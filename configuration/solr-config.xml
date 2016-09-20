@@ -12,6 +12,13 @@
     <description>Whether Solr should be started in Cloud mode</description>
   </property>  
   
+
+  <property>
+    <name>solr.demo_mode</name>
+    <value>false</value>
+    <description>Whether Solr should be configured for HDP demos. If true, a collection named tweets will be created using data_driven schema</description>
+  </property>  
+    
   <property>
     <name>solr.dir</name>
     <value>/opt/solr</value>

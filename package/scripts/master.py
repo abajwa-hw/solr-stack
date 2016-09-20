@@ -48,11 +48,15 @@ class Master(Script):
 
                
     if params.solr_downloadlocation == 'HDPSEARCH':
-      Execute('export JAVA_HOME='+params.java64_home+';yum install -y lucidworks-hdpsearch')
-        
-          
-    if params.solr_downloadlocation == 'HDPSEARCH':
       Execute('echo HDPSeach mode selected')
+      Execute('export JAVA_HOME='+params.java64_home+';yum install -y lucidworks-hdpsearch')
+      
+      if params.demo_mode:
+        #download demo banana dashboard
+        Execute('wget --backups=1 https://raw.githubusercontent.com/abajwa-hw/ambari-nifi-service/master/demofiles/default.json -O /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/banana/app/dashboards/default.json', user=params.solr_user)
+        #update the data_driven_configs
+        Execute("sed -i.bak '/<arr name=\"format\">/a     <str>EEE MMM d HH:mm:ss Z yyyy</str>' /opt/lucidworks-hdpsearch/solr/server/solr/configsets/data_driven_schema_configs/conf/solrconfig.xml", user=params.solr_user)
+
     else:
       Execute('cd ' + params.solr_dir + '; wget ' + params.solr_downloadlocation + ' -O solr.tgz -a ' + params.solr_log, user=params.solr_user)
       Execute('cd ' + params.solr_dir + '; tar -xvf solr.tgz', user=params.solr_user)
@@ -123,6 +127,9 @@ class Master(Script):
     
       #$SOLR_IN_PATH/solr.in.sh ./solr start -cloud -noprompt -s $SOLR_DATA_DIR
       Execute(format('SOLR_INCLUDE={solr_conf}/solr.in.sh {solr_bindir}/solr start -cloud -noprompt -s {solr_datadir} >> {solr_log}'), user=params.solr_user)
+      
+      if params.demo_mode:
+        Execute(format('SOLR_INCLUDE={solr_conf}/solr.in.sh {solr_bindir}/solr create -c tweets -d data_driven_schema_configs -s 1 -rf 1 >> {solr_log}'), user=params.solr_user)
       
     else:
       cmd = params.service_packagedir + '/scripts/start.sh ' + params.solr_dir + ' ' + params.solr_log + ' ' + status_params.solr_pidfile + ' ' + params.solr_bindir
