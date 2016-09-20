@@ -8,9 +8,9 @@
             <!-- display name for service (displayed in Ambari UI) -->
             <displayName>Solr</displayName>
             <!-- Description of service - will be displayed when user clicks add service -->
-            <comment>Solr is a search platform from the Apache Lucene project. Its major features include full-text search, hit highlighting, faceted search, dynamic clustering, database integration, and rich document (e.g., Word, PDF) handling.</comment>
+            <comment>Solr is a search platform from the Apache Lucene project. Its major features include full-text search, hit highlighting, faceted search, dynamic clustering, database integration, and rich document (e.g., Word, PDF) handling. This service is for &lt;b&gt;Demo purposes only&lt;/b&gt; and is &lt;b&gt;not officially supported&lt;/b&gt;</comment>
             <!-- Version of component-->
-            <version>0.0.1</version>
+            <version>0.0.1-DEMO</version>
             
             <!-- Any required services -->
             <requiredServices>
