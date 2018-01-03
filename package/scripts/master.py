@@ -109,7 +109,14 @@ class Master(Script):
 
     #this allows us to access the params.solr_pidfile property as format('{solr_pidfile}')
     env.set_params(params)
-        
+
+    Directory([status_params.solr_piddir],
+              mode=0755,
+              cd_access='a',
+              owner=params.solr_user,
+              group=params.solr_group,
+              create_parents=True
+          )
     Execute('find '+params.service_packagedir+' -iname "*.sh" | xargs chmod +x')
 
     #form command to invoke setup_solr.sh with its arguments and execute it
